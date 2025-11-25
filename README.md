@@ -1,135 +1,212 @@
-# Credit-card-default-analysis
-Credit Card Default Prediction
-A machine learning project to predict credit card default risk using the UCI Credit Card Default dataset.
+# 💳 Credit Card Default Prediction – End-to-End Machine Learning Project
 
-📊 Project Overview
-This project analyzes credit card default patterns and builds predictive models to identify customers at high risk of defaulting on their credit card payments. The dataset contains 30,000 customer records with 25 features including demographic information, payment history, bill statements, and payment amounts.
+## 📌 Project Overview
+This project predicts whether a customer is likely to **default on their next month’s credit card payment** using machine learning techniques.  
+The analysis uses the **UCI Credit Card Default Dataset**, which contains demographic data, credit limits, bill history, and payment behavior for 30,000 customers.
 
-🎯 Business Problem
-Credit card defaults pose significant financial risks to banks and financial institutions. Early identification of potential defaulters can help institutions:
+The goal is to help financial institutions reduce risk by identifying **high-risk customers early**, enabling better credit decisions, targeted interventions, and portfolio stability.
 
-Reduce financial losses
+---
 
-Implement proactive risk management
+## 🎯 Objectives
+- Build a predictive model for **credit card default risk**
+- Analyze customer behavior patterns influencing defaults
+- Engineer relevant features for improved model accuracy
+- Compare models (Random Forest & XGBoost)
+- Generate interpretable insights using feature importance
+- Prepare data for BI dashboards (Power BI)
+- Export final cleaned dataset with model-generated risk scores
 
-Optimize credit limit decisions
+---
 
-Develop targeted customer retention strategies
+## 📂 Project Workflow
 
-📁 Dataset
-Source: UCI Credit Card Default Dataset
-Records: 30,000
-Features: 25 original features
-Target Variable: default.payment.next.month (Binary: 1 = Default, 0 = No Default)
+### **1. Import Libraries**
+Used major data science packages:
+- `pandas`
+- `numpy`
+- `matplotlib`
+- `seaborn`
+- `sklearn`
+- `xgboost`
 
-Key Features:
-Demographic: LIMIT_BAL, SEX, EDUCATION, MARRIAGE, AGE
+---
 
-Payment History: PAY_0 to PAY_6 ( repayment status)
+### **2. Load Dataset**
+Imported UCI dataset and verified structure, data types, and null values.
 
-Bill Amounts: BILL_AMT1 to BILL_AMT6
+---
 
-Payment Amounts: PAY_AMT1 to PAY_AMT6
+### **3. Rename Columns**
+Applied readable and business-friendly column names:
+- `SEX` → `Gender`
+- `EDUCATION` → `Education_Level`
+- `MARRIAGE` → `Marital_Status`
+- `PAY_0` → `Pay_Status_April`
+- …and more
 
-🛠️ Technical Implementation
-Data Preprocessing
-✅ Missing value analysis (No missing values found)
+This improves understanding for BI reports and stakeholders.
 
-✅ Categorical variable encoding
+---
 
-✅ Outlier treatment using RobustScaler
+### **4. Data Cleaning**
+- Removed duplicates  
+- Handled incorrect categories  
+- Converted numerical ranges into categorized bins  
+- Converted month-over-month payment history into consistent format  
+- Fixed outliers using percentile clipping  
+- Ensured correct data types  
 
-✅ Feature engineering (37 total features created)
+---
 
-Feature Engineering
-Credit Utilization Metrics: avg_bill_ratio, max_bill_ratio
+### **5. Exploratory Data Analysis (EDA)**
+Studied:
+- Default rates by Gender, Education, Marital Status  
+- Payment delays and their contribution to default  
+- Bill amount vs. default risk  
+- Correlation heatmaps  
+- Boxplots for understanding variability  
+- Distribution analysis for skewed variables  
 
-Payment Behavior: avg_payment_ratio, missed_payment_count
+---
 
-Delinquency Metrics: max_delay, avg_delay, num_delays
+### **6. Feature Engineering**
+Created model-ready features:
+- Payment delay counts  
+- Total bill amount  
+- Total previous payments  
+- Utilization ratio  
+- Risk patterns in repayment history  
 
-Customer Segmentation: is_young_customer, is_senior_customer
+Removed irrelevant features for cleaner ML input.
 
-Financial Summary: avg_bill_amt, avg_pay_amt, pay_to_limit_ratio
+---
 
-Exploratory Data Analysis
-Target variable distribution: 22.12% default rate
+### **7. Train–Test Split**
+Split dataset into:
+- **70% training**
+- **30% testing**
 
-Credit limit analysis and distribution
+Ensured balanced and representative data.
 
-Demographic insights
+---
 
-Payment pattern analysis
+### **8. Model Training**
+Trained two models:
 
-📈 Model Performance
-(To be updated after model implementation)
+#### ✔️ Random Forest Classifier  
+- Good baseline  
+- Handles imbalanced data  
+- Robust to noise  
 
-🚀 Installation
-# Clone the repository
-git clone https://github.com/yourusername/credit-card-default-prediction.git
+#### ✔️ XGBoost Classifier  
+- Best performance  
+- Handles complex interactions  
+- Excellent for tabular data  
 
-# Navigate to project directory
-cd credit-card-default-prediction
+Hyperparameters were tuned for better performance.
 
-# Install required packages
-pip install -r requirements.txt
+---
 
-📋 Requirements
-pandas>=1.3.0
-numpy>=1.21.0
-matplotlib>=3.4.0
-seaborn>=0.11.0
-scikit-learn>=1.0.0
-jupyter>=1.0.0
+### **9. Evaluation Metrics**
+Evaluated using:
+- **Accuracy**
+- **F1 Score**
+- **AUC Score**
+- **Confusion Matrix**
+- **Classification Report**
 
-💻 Usage
-# Load and preprocess data
-from src.data_preprocessing import load_and_clean_data
-df = load_and_clean_data('path/to/UCI_Credit_Card.csv')
+Created a comparison table to identify the best model.
 
-# Feature engineering
-from src.feature_engineering import create_features
-df_processed = create_features(df)
+---
 
-# Train model
-from src.model import train_model
-model, scores = train_model(df_processed)
+### **10. Model Comparison**
+| Model           | Accuracy | F1 Score | AUC |
+|----------------|----------|----------|------|
+| Random Forest  | x.xx     | x.xx     | x.xx |
+| XGBoost        | x.xx     | x.xx     | x.xx |
 
-📁 Project Structure
-credit-card-default-prediction/
-│
-├── data/
-│   └── UCI_Credit_Card.csv
-│
-├── notebooks/
-│   └── UCI_Credit_Card_Default.ipynb
-│
-├── src/
-│   ├── __init__.py
-│   ├── data_preprocessing.py
-│   ├── feature_engineering.py
-│   ├── model.py
-│   └── utils.py
-│
-├── models/
-│   └── (saved models)
-│
-├── requirements.txt
-├── README.md
-└── .gitignore
+👉 **XGBoost performed better** and was selected as the final model.
 
-🔮 Future Enhancements
-Implement multiple machine learning models
+This is the **risk score** used for Power BI visualization.
 
-Hyperparameter tuning and cross-validation
+Exported:
+- **clean_data_with_prob.csv**
+- **trained_model.pkl**
 
-Model interpretation using SHAP values
+---
 
-Deployment as a web application
+### **12. Power BI Dashboard**
+Prepared dataset for Power BI to visualize:
+- Default Risk by Age & Gender  
+- Risk by Education Level & Marital Status  
+- Risk by Payment Delay Patterns  
+- High-risk customer segments  
+- Risk score KPI cards  
+- Distribution of risk across credit limits  
 
-Real-time prediction API
+---
 
-🙏 Acknowledgments
-UCI Machine Learning Repository for the dataset
+## 🛠 Tools & Technologies
 
-Contributors and maintainers of the open-source libraries used
+### **Programming & ML**
+- Python  
+- Pandas, NumPy  
+- Scikit-Learn  
+- XGBoost  
+- Matplotlib, Seaborn  
+
+### **Business Intelligence**
+- Power BI  
+
+### **Version Control**
+- Git  
+- GitHub  
+
+---
+
+---
+
+## 📊 Key Insights
+- Customers with **payment delays ≥ 2 months** show sharply increasing default risk  
+- Higher **credit utilization** strongly correlates with default  
+- Risk is higher for certain education groups  
+- Bill amount alone doesn't predict risk — **behavior patterns do**  
+- Model identifies “silent risk” customers who appear normal but have subtle risk indicators  
+
+---
+
+## 💼 Business Impact
+This project helps financial institutions:
+- Reduce default rates  
+- Improve loan approval strategy  
+- Enable proactive customer engagement  
+- Segment risk for better credit-line decisions  
+- Build data-driven risk management frameworks  
+
+---
+
+## 🚀 Future Enhancements
+- Add SHAP explainability visualizations  
+- Deploy model via Flask/Streamlit  
+- Automate data refreshing  
+- Real-time scoring API  
+- Enhanced BI monitoring dashboard  
+
+---
+
+## 🙌 Author
+**Mazhar Khan**  
+Data Analyst | Business Analytics  
+
+📧 Email: *mazhark2028@gmail.com*  
+🔗 LinkedIn: *mazhark2028@gmail.com*  
+
+---
+
+
+
+---
+
+### **11. Generate Default Probability**
+Added a new scoring column:
