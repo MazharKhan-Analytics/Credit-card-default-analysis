@@ -200,7 +200,7 @@ This project helps financial institutions:
 Data Analyst | Business Analytics  
 
 📧 Email: *mazhark2028@gmail.com*  
-🔗 LinkedIn: *mazhark2028@gmail.com*  
+🔗 LinkedIn: *www.linkedin.com/in/mazhar-khan-7a52a620a*  
 
 ---
 
